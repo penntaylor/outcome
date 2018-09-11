@@ -194,20 +194,14 @@ bag of tricks.
 
 # Looks interesting, but I'm not going to rewrite all my functions to return Outcomes
 
-I hear you: you have working code that you don't want to mess up or
-refactor just to try this out. Or maybe you want the exposed functions
-of your library to be "vanilla" python, but you think it might be nice
-to use `Outcome` internally for chaining. Or maybe you want to use
-`Outcome` with a third-party library and don't want to have to wrap
-each and every function.
-
-No problem. The functions `pureOutcome` and `liftOutcome` are provided
-for exactly these situations. `pureOutcome` can be used to turn a
-*value* into an appropriate `Outcome` so you can send it into a
-computation chain. `liftOutcome` turns a *function returning a normal
-value* into a *function returning an `Outcome`*. Remember the original
-versions of `foo` and `bar` up there, the ones that return either an
-`int` or a `None`?  We can turn them into `Outcome`s on the fly:
+The functions `pureOutcome` and `liftOutcome` let you use Outcomes for
+chaining without having to rewrite or manually wrap
+everything. `pureOutcome` can be used to turn a *value* into an
+appropriate `Outcome` so you can send it into a computation
+chain. `liftOutcome` turns a *function returning a normal value* into
+a *function returning an `Outcome`*. Remember the original versions of
+`foo` and `bar` up there, the ones that return either an `int` or a
+`None`?  We can turn them into `Outcome`s on the fly:
 
 ```python
 result = pureOutcome(foo(9)) >> liftOutcome(bar) >> liftOutcome(baz)
